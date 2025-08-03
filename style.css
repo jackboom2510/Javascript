@@ -1,0 +1,234 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background-color: #f0f0f0;
+    overflow: hidden;
+    /* Prevent accidental body scrollbars */
+    display: flex;
+    /* Use flexbox on body to make app-container fill it */
+    min-height: 100vh;
+    /* Ensure body takes full viewport height */
+}
+
+#app-container {
+    display: flex;
+    /* Arrange controls and main content side-by-side */
+    flex-grow: 1;
+    /* Allow app-container to fill available width */
+    height: 100vh;
+    /* Make the app take full viewport height */
+}
+
+#controls-panel {
+    flex-shrink: 0;
+    /* Prevent the control panel from shrinking */
+    width: 280px;
+    /* Fixed width for the sidebar */
+    background-color: #333;
+    padding: 20px;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+    /* Add shadow to separate from content */
+    display: flex;
+    flex-direction: column;
+    /* Stack controls vertically */
+    gap: 15px;
+    overflow-y: auto;
+    /* Allow controls to scroll if content is long */
+    box-sizing: border-box;
+    /* Include padding in the 280px width */
+    color: white;
+    /* Ensure text color is visible on dark background */
+}
+
+/* Adjust general control panel elements for new sidebar layout */
+#controls-panel h3,
+#controls-panel h4 {
+    margin-top: 0;
+    /* Remove default top margin for headings in the sidebar */
+    margin-bottom: 5px;
+    /* Add a small bottom margin */
+    font-size: 1.1em;
+}
+
+#controls-panel hr {
+    border: none;
+    border-top: 1px solid #444;
+    margin: 10px 0;
+}
+
+#mode-control-container {
+    /* UPDATED: Align buttons in 3 rows, centered */
+    display: flex;
+    flex-direction: column;
+    /* Stack buttons vertically */
+    align-items: center;
+    /* Center buttons horizontally */
+    gap: 10px;
+    /* Space between buttons */
+}
+
+.mode-btn {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #555;
+    color: white;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    /* Make buttons take most of the width, centered */
+    box-sizing: border-box;
+    /* Include padding in width */
+}
+
+.mode-btn:hover {
+    background-color: #777;
+}
+
+.mode-btn.active-mode {
+    background-color: #e0e0e0;
+    color: #333;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Adjust input fields for better appearance in sidebar */
+#fixed-plane-size-controls,
+#infinite-plane-view-controls,
+#plane-type-container {
+    display: flex;
+    flex-direction: column;
+    /* Stack labels/inputs vertically */
+    align-items: flex-start;
+    /* Align left */
+    gap: 8px;
+    /* Reduce gap for tighter packing */
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #444;
+    /* Slightly different background for sections */
+}
+
+#fixed-plane-size-controls input[type="number"],
+#infinite-plane-view-controls input[type="number"] {
+    width: 80px;
+    /* Make inputs slightly wider */
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid #666;
+    background-color: #555;
+    color: white;
+}
+
+#applyFixedSizeBtn,
+#applyInfiniteViewBtn {
+    align-self: flex-end;
+    /* Push buttons to the right */
+    margin-top: 5px;
+    /* Add some space above button */
+    padding: 8px 15px;
+    font-size: 0.9em;
+}
+
+
+#main-content-area {
+    flex-grow: 1;
+    /* Allow main content area to take all remaining space */
+    display: flex;
+    justify-content: center;
+    /* Center grid horizontally */
+    align-items: center;
+    /* Center grid vertically */
+    overflow: auto;
+    /* Allow scrolling within this area if the grid is larger than the view */
+    padding: 20px;
+    /* Add some padding around the grid */
+    box-sizing: border-box;
+}
+
+/* --- Grid Styles --- */
+#grid-container {
+    display: grid;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+}
+
+.grid-cell {
+    border: 1px solid #eee;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+}
+
+.grid-cell.moveable {
+    background-color: green;
+}
+
+.grid-cell.gray {
+    background-color: lightgray;
+}
+
+.star-cell {
+    background-color: yellow !important;
+    border: 2px solid orange !important;
+}
+
+.arrow {
+    position: absolute;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+    color: #333;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 2px 4px;
+    border-radius: 3px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.arrow:hover {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.arrow.up {
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.arrow.down {
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.arrow.left {
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.arrow.right {
+    right: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.edit-selection-border {
+    outline: 3px solid dodgerblue;
+    outline-offset: -3px;
+    z-index: 5;
+}
