@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="setup-screen" class="screen active">
+        <div class="sidebar" id="mode-controls-container-setup">
+            <h2>Thiết lập Plane</h2>
+            <div class="control-group">
+                <label for="setupGridWidthInput">Chiều rộng Plane:</label>
+                <input type="number" id="setupGridWidthInput" min="5" max="50" value="10">
+                <label for="setupGridHeightInput">Chiều cao Plane:</label>
+                <input type="number" id="setupGridHeightInput" min="5" max="50" value="10">
+                <button id="setupSetGridSizeBtn">Đặt kích thước</button>
+                <button id="setupFitToScreenBtn">Vừa màn hình</button>
+            </div>
+            <button id="startGameBtn">Bắt đầu game</button>
+
+            <div class="dark-mode-toggle-container">
+                <button id="darkModeToggle">Chế độ tối</button>
+            </div>
+        </div>
+        <div class="grid-with-axes-container">
+            <div class="x-axis-labels"></div>
+            <div class="grid-wrapper">
+                <div class="y-axis-labels"></div>
+                <div id="setup-grid-container" class="grid-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-screen" class="screen">
+        <div class="sidebar" id="mode-controls-container-game">
+            <h2>Điều khiển Game</h2>
+            <div class="control-group mode-buttons-container">
+                <button id="playModeBtn">Chơi (1)</button>
+                <button id="editModeBtn">Sửa (2)</button>
+                <button id="liveModeBtn">Live (3)</button>
+            </div>
+            <div class="control-group">
+                <label for="gridWidthInput">Chiều rộng Plane:</label>
+                <input type="number" id="gridWidthInput" min="5" max="50" value="10">
+                <label for="gridHeightInput">Chiều cao Plane:</label>
+                <input type="number" id="gridHeightInput" min="5" max="50" value="10">
+                <button id="setGridSizeBtn">Đặt kích thước</button>
+                <button id="fitToScreenBtn">Vừa màn hình</button>
+            </div>
+
+            <div class="dark-mode-toggle-container">
+                <button id="darkModeToggleGame">Chế độ tối</button>
+            </div>
+
+        </div>
+        <div class="grid-with-axes-container">
+            <div class="x-axis-labels"></div>
+            <div class="grid-wrapper">
+                <div class="y-axis-labels"></div>
+                <div id="grid-container" class="grid-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

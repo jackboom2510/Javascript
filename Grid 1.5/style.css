@@ -1,0 +1,437 @@
+/* General Body Styles */
+:root {
+    /* Light Mode Colors - Keep these as they are good */
+    --background-color: #f4f4f4;
+    --text-color: #333;
+    --container-bg: #fff;
+    --border-color: #ccc;
+    --sidebar-bg: #e9e9e9;
+    --button-bg: #007bff;
+    --button-text: #fff;
+    --button-hover-bg: #0056b3;
+    --input-bg: #fff;
+    --input-border: #ced4da;
+    --active-button-bg: #28a745; /* Green for active mode button */
+    --active-button-text: #fff;
+
+    /* Grid Colors */
+    --grid-border: #333;
+    --cell-border: #7b7b7b;
+    --unmoveable-cell-bg: #f8d7da; /* Light Red */
+    --moveable-cell-bg: #89ffa5;   /* Light Green */
+    --marked-cell-bg: #f8d878;     /* Light Orange */
+    --star-cell-bg: #7fceff;       /* Blue */
+    --selection-border: #007bff;   /* Blue */
+
+    /* Arrow Colors for Light Mode (Tinh chỉnh để nổi bật hơn) */
+    --arrow-color: #28a745;      /* Xanh lá cây */
+    --arrow-hover-color: #1e7e34; /* Xanh lá cây đậm hơn khi hover */
+}
+
+/* Dark Mode Colors - Adjusted for more vibrancy and contrast */
+body.dark-mode {
+    --background-color: #1a1a1a;   /* Slightly darker background for more contrast */
+    --text-color: #f0f0f0;         /* Brighter text for readability */
+    --container-bg: #2c2c2c;       /* Darker grey for containers */
+    --border-color: #4a4a4a;       /* Stronger border definition */
+    --sidebar-bg: #222222;         /* Slightly darker sidebar */
+    --button-bg: #4c6a90;          /* More distinct blue-grey for buttons */
+    --button-text: #f0f0f0;
+    --button-hover-bg: #3c5a7a;    /* Darker hover for buttons */
+    --input-bg: #353535;           /* Darker input background */
+    --input-border: #5a5a5a;       /* Clearer input border */
+    --active-button-bg: #4CAF50;   /* Brighter, more vibrant green for active mode button */
+    --active-button-text: #fff;
+
+    /* Grid Colors for Dark Mode - More prominent tones */
+    --grid-border: #666666;         /* Lighter grey for grid borders for better visibility */
+    --cell-border: #3a3a3a;         /* Slightly darker cell borders */
+    --unmoveable-cell-bg: #ffc0c0;  /* Vibrant Red (e.g., Material Design 700) */
+    --moveable-cell-bg: #66BB6A;    /* Brighter Green (e.g., Material Design 400) */
+    --marked-cell-bg: #FFA000;      /* Distinct Orange (e.g., Material Design 700) */
+    --star-cell-bg: #3F51B5;        /* Deep, clear Blue (e.g., Material Design 700) */
+    --selection-border: #8c9eff;    /* Lighter, more prominent blue for selection */
+
+    /* Arrow Colors for Dark Mode (Tinh chỉnh để nổi bật hơn) */
+    --arrow-color: #00ccff;      /* Xanh lá cây nhạt */
+    --arrow-hover-color: #4ade80; /* Xanh lá cây sáng hơn khi hover */
+}
+
+/* Rest of the CSS remains the same as before */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    margin: 0;
+    height: 100vh;
+    overflow: hidden; /* Hide scrollbars for the body */
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* --- Container for Screens (Full Page Layout) --- */
+.screen {
+    display: none; /* Hidden by default */
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.screen.active {
+    display: flex; /* Show active screen */
+}
+
+/* --- App Container for each screen (Setup and Game) --- */
+.app-container {
+    display: flex;
+    flex-grow: 1; /* Allows container to take available space */
+    height: 100%; /* Occupy full height */
+}
+
+/* --- Sidebar for Controls --- */
+.sidebar {
+    width: 250px; /* Fixed width for sidebar */
+    background-color: var(--sidebar-bg);
+    padding: 15px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between sections */
+    box-sizing: border-box; /* Include padding in width */
+    overflow-y: auto; /* Enable scrolling for sidebar content if it overflows */
+}
+
+.sidebar h2 {
+    color: var(--text-color);
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.control-group {
+    background-color: var(--container-bg);
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.control-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    color: var(--text-color);
+}
+
+.control-group input[type="number"],
+.control-group button {
+    width: calc(100% - 10px); /* Adjust width for padding */
+    padding: 8px;
+    margin-bottom: 8px;
+    border: 1px solid var(--input-border);
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 0.9em;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+}
+
+.control-group button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.control-group button:hover {
+    background-color: var(--button-hover-bg);
+}
+
+.mode-buttons-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow buttons to wrap if space is limited */
+    gap: 5px; /* Smaller gap between buttons */
+    margin-top: 10px;
+}
+
+.mode-buttons-container button {
+    flex: 1 1 auto; /* Allow buttons to grow and shrink, minimum size based on content */
+    min-width: 70px; /* Ensure a minimum width for buttons */
+    padding: 8px 10px;
+    font-size: 0.85em; /* Slightly smaller font for compactness */
+    margin-bottom: 0; /* Remove bottom margin here, handled by gap */
+}
+
+.mode-buttons-container button.active {
+    background-color: var(--active-button-bg);
+    color: var(--active-button-text);
+    cursor: default;
+}
+
+/* Dark Mode Toggle Button */
+.dark-mode-toggle-container {
+    margin-top: auto; /* Push to the bottom */
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+}
+
+#darkModeToggle, #darkModeToggleGame { /* Áp dụng style cho cả hai nút Dark Mode Toggle */
+    width: auto; /* Allow button to size to content */
+    padding: 8px 15px;
+    margin-top: 10px;
+}
+
+
+/* --- Grid with Axes Container --- */
+.grid-with-axes-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    flex-grow: 1; /* Takes remaining space */
+    overflow: hidden; /* Hide scrollbars for this container directly */
+}
+
+.x-axis-labels {
+    display: flex;
+    margin-left: 25px; /* Align with Y-axis width */
+    overflow-x: hidden; /* Hide horizontal scrollbar for x-axis labels */
+    flex-shrink: 0; /* Prevent labels from shrinking */
+    height: 25px; /* Fixed height for x-axis labels */
+}
+
+.x-axis-labels div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8em;
+    color: var(--text-color);
+    flex-shrink: 0; /* Prevent labels from shrinking */
+}
+
+.grid-wrapper {
+    display: flex;
+    flex-grow: 1; /* Allow grid content to take available height */
+    overflow: auto; /* Enable scrollbars for grid content */
+    border: 1px solid var(--grid-border); /* Border around the entire grid area */
+}
+
+.y-axis-labels {
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden; /* Hide vertical scrollbar for y-axis labels */
+    flex-shrink: 0; /* Prevent labels from shrinking */
+    width: 25px; /* Fixed width for y-axis labels */
+}
+
+.y-axis-labels div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8em;
+    color: var(--text-color);
+    flex-shrink: 0; /* Prevent labels from shrinking */
+}
+
+/* --- Grid Container --- */
+.grid-container {
+    display: grid;
+    border: 1px solid var(--grid-border); /* Grid border for visual separation */
+    box-sizing: border-box; /* Include padding and border in sizing */
+    flex-shrink: 0; /* Prevent grid from shrinking */
+    /* Remove overflow: auto here, let .grid-wrapper handle it */
+}
+
+.grid-cell {
+    width: 50px; /* Default size, will be overridden by JS */
+    height: 50px; /* Default size, will be overridden by JS */
+    border: 1px solid var(--cell-border);
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: background-color 0.1s ease; /* Smooth transition for cell colors */
+}
+
+/* Cell States */
+.grid-cell.unmoveable {
+    background-color: var(--unmoveable-cell-bg);
+}
+
+.grid-cell.moveable {
+    background-color: var(--moveable-cell-bg);
+}
+
+.grid-cell.marked {
+    background-color: var(--marked-cell-bg);
+}
+
+/* Star Cell Specifics */
+.grid-cell.star-cell {
+    background-color: var(--star-cell-bg);
+}
+
+/* Edit/Selection Border */
+.grid-cell.edit-selection-border {
+    outline: 2px solid var(--selection-border); /* Use outline for border that doesn't affect layout */
+    outline-offset: -2px; /* Pull outline inside border */
+}
+
+/* Arrows for Star Movement */
+.arrow {
+    position: absolute;
+    font-size: 20px;
+    /* Kích thước font của ký tự mũi tên */
+    cursor: pointer;
+    opacity: 0.9;
+    /* Tăng nhẹ độ mờ mặc định */
+    transition: opacity 0.2s, background-color 0.2s, transform 0.2s;
+    /* Thêm transform vào transition */
+
+    /* Màu sắc mũi tên (ký tự) - có thể điều chỉnh theo biến màu của bạn */
+    color: var(--arrow-color);
+
+    /* Nền và hình dáng nút bấm */
+    background-color: rgba(255, 255, 255, 0.7);
+    /* Nền trắng hơi trong suốt cho chế độ sáng */
+    padding: 2px 4px;
+    /* Khoảng đệm xung quanh ký tự */
+    border-radius: 4px;
+    /* Bo tròn các góc */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    /* Bóng đổ nhẹ nhàng */
+    z-index: 100;
+    /* Đảm bảo luôn nằm trên cùng */
+    display: flex;
+    /* Dùng flexbox để căn giữa ký tự mũi tên bên trong nút */
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    /* Đảm bảo ký tự mũi tên đậm */
+}
+
+/* Màu nền và bóng đổ cho chế độ tối */
+body.dark-mode .arrow {
+    background-color: rgba(45, 45, 45, 0.495);
+    /* Nền tối hơi trong suốt */
+    box-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
+    color: var(--arrow-color);
+    /* Sử dụng màu mũi tên cho chế độ tối */
+}
+
+.arrow:hover {
+    opacity: 1;
+    background-color: rgb(255, 255, 255);
+    /* Nền trắng đục khi hover */
+    transform: scale(1.1);
+    /* Phóng to nhẹ khi hover để tạo hiệu ứng */
+}
+
+body.dark-mode .arrow:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    /* Nền tối đậm hơn khi hover */
+    transform: scale(1.1);
+}
+
+/* ĐIỀU CHỈNH VỊ TRÍ MŨI TÊN ĐỂ NẰM NGOÀI CẠNH */
+/* Giá trị âm nên lớn hơn một nửa chiều cao/chiều rộng của nút mũi tên (bao gồm padding) */
+
+.arrow.up {
+    top: -20px;
+    /* Đẩy lên 20px so với cạnh trên của ô */
+    left: 50%;
+    transform: translateX(-50%);
+    /* Căn giữa theo chiều ngang */
+}
+
+.arrow.down {
+    bottom: -20px;
+    /* Đẩy xuống 20px so với cạnh dưới của ô */
+    left: 50%;
+    transform: translateX(-50%);
+    /* Căn giữa theo chiều ngang */
+}
+
+.arrow.left {
+    left: -20px;
+    /* Đẩy sang trái 20px so với cạnh trái của ô */
+    top: 50%;
+    transform: translateY(-50%);
+    /* Căn giữa theo chiều dọc */
+}
+
+.arrow.right {
+    right: -20px;
+    /* Đẩy sang phải 20px so với cạnh phải của ô */
+    top: 50%;
+    transform: translateY(-50%);
+    /* Căn giữa theo chiều dọc */
+}
+
+/* Start Game Button Styling */
+#startGameBtn {
+    background-color: var(--active-button-bg);
+    color: var(--active-button-text);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    margin-top: 20px; /* Space above the button */
+    transition: background-color 0.2s ease;
+}
+
+#startGameBtn:hover {
+    background-color: #1e7e34; /* Darker green on hover */
+}
+
+/* Responsive Adjustments for smaller screens (optional, but good practice) */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column; /* Stack sidebar and content vertically */
+        overflow-y: auto; /* Allow body to scroll if content overflows */
+    }
+
+    .sidebar {
+        width: 100%; /* Full width sidebar */
+        max-height: 200px; /* Limit sidebar height on small screens */
+        flex-direction: row; /* Layout controls horizontally if space allows */
+        flex-wrap: wrap;
+        justify-content: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .sidebar h2 {
+        width: 100%; /* Ensure heading takes full width */
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    .control-group {
+        flex: 1 1 45%; /* Allow control groups to take half width */
+        min-width: 150px;
+        padding: 8px;
+        margin-bottom: 0;
+    }
+
+    .mode-buttons-container button {
+        flex: 1 1 30%; /* Adjust mode buttons for smaller screens */
+        min-width: unset;
+    }
+
+    .dark-mode-toggle-container {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+        width: 100%;
+    }
+
+    .grid-with-axes-container {
+        padding: 10px;
+    }
+}
